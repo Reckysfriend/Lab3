@@ -27,6 +27,7 @@ namespace Lab3
             temperature.PrintArray(temperatureArray, "May");
             Console.WriteLine(" ");
             temperature.AverageTemperature(temperatureArray);
+            temperature.HighestTemperature(temperatureArray);
             Console.ReadLine();
 
         }
@@ -62,6 +63,18 @@ namespace Lab3
             }
             int averageSumOfArray = sumOfArray / intArray.Length;
             Console.WriteLine($"The average temperature of the month is {averageSumOfArray}!");
+        }
+        public void HighestTemperature(int[] intArray)
+        {
+            int highestValue = 0;
+            foreach (int x in intArray)
+            {
+                if (x > highestValue) 
+                {
+                    highestValue = x;
+                }
+            }
+            Console.WriteLine(highestValue);
         }
     }
 }
