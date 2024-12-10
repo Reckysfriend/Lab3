@@ -1,5 +1,8 @@
-﻿namespace Lab3
+﻿using System.Reflection.Metadata.Ecma335;
+
+namespace Lab3
 {
+
     /*
      * Static Array with all dates of May
      * A class for temperature
@@ -14,10 +17,13 @@
      * A way to get the most common temperature in May.
      * Fill the May-array with random elements via Random
      */
+
+
     public class Program
     {
-        static void Main(string[] args)
+       public static void Main(string[] args)
         {
+
             TemperatureInformation temperature = new TemperatureInformation("May", 31);
             temperature.GenerateRandomTemperaturesInMonth(31);
             temperature.PrintArray();
