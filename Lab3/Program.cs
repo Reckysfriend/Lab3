@@ -28,6 +28,7 @@ namespace Lab3
             Console.WriteLine(" ");
             temperature.AverageTemperature(temperatureArray);
             temperature.HighestTemperature(temperatureArray);
+            temperature.LowestTemperature(temperatureArray);
             Console.ReadLine();
 
         }
@@ -75,6 +76,18 @@ namespace Lab3
                 }
             }
             Console.WriteLine(highestValue);
+        }
+        public void LowestTemperature(int[] intArray)
+        {
+            int lowestValue = intArray[0];
+            foreach (int x in intArray)
+            {
+                if (x < lowestValue)
+                {
+                    lowestValue= x;
+                }
+            }
+            Console.WriteLine(lowestValue);
         }
     }
 }
