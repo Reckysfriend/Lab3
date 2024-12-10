@@ -1,4 +1,6 @@
-﻿namespace Lab3
+﻿using System.Reflection.Metadata.Ecma335;
+
+namespace Lab3
 {
 /*
  * Static Array with all dates of May
@@ -18,16 +20,26 @@
     {
         static void Main(string[] args)
         {
-            int[] temperatureInMay = new int[31];
+        }
+    }
+    public class Temperature
+    {
+        static int[] RandomTemperaturesInMonth(int days)
+        {
+            int[] temperatureArray = new int[days];
             Random random = new Random();
-            int y = 0;
-
-            for (int i = 0;  i < temperatureInMay.Length; i++)
+            return x;
+            for (int i = 0; i < temperatureArray.Length; i++)
             {
-                int x = random.Next(0 , 25 + 1);
-                temperatureInMay[i] = x;
+                int x = random.Next(0, 25 + 1);
+                temperatureArray[i] = x;
             }
-            foreach (int x in temperatureInMay)
+            
+        }
+        static void PrintArray(int[] intArray)
+        {
+            int y = 0;
+            foreach (int x in intArray)
             {
                 y++;
                 Console.WriteLine($"May {y}: {x}°C");
