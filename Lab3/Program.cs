@@ -18,7 +18,20 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            int[] temperatureInMay = new int[31];
+            Random random = new Random();
+            int y = 0;
+
+            for (int i = 0;  i < temperatureInMay.Length; i++)
+            {
+                int x = random.Next(0 , 25 + 1);
+                temperatureInMay[i] = x;
+            }
+            foreach (int x in temperatureInMay)
+            {
+                y++;
+                Console.WriteLine($"May {y}: {x}°C");
+            }
         }
     }
 }
