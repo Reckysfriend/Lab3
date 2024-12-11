@@ -17,7 +17,6 @@ namespace Lab3
         {
 
             TemperatureInformation temperature = new TemperatureInformation("May", 31);
-            temperature.GenerateRandomTemperaturesInMonth(31);
             temperature.PrintArray();
             temperature.AverageTemperature();
             temperature.HighestTemperature();
@@ -38,8 +37,9 @@ namespace Lab3
             Month = month;
             Days = days;
             temperaturesInMonth = new int[days];
+            GenerateRandomTemperaturesInMonth();
         }
-        public void GenerateRandomTemperaturesInMonth(int days)
+        public void GenerateRandomTemperaturesInMonth()
         {
             Random random = new Random();
             for (int i = 0; i < temperaturesInMonth.Length; i++)
