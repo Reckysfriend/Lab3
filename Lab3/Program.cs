@@ -4,18 +4,10 @@ namespace Lab3
 {
 
     /*
-     * Static Array with all dates of May
-     * A class for temperature
-     * A way to display all the temperature of all days in May
-     * A way to display the average emperature in May based on array.
-     * A way to find the hottest day in May and display it.
-     * A way to find the coldest day in May and display it.
-     * A way to find the median temperature of May and display it.
      * A way to sort the temperature both ascending and descending.
      * A way to only show days above X temperature to identifiy warmer days.
      * Ability to enter a date and return the temperature of that day and its neighbouring days.
      * A way to get the most common temperature in May.
-     * Fill the May-array with random elements via Random
      */
 
 
@@ -30,6 +22,8 @@ namespace Lab3
             temperature.AverageTemperature();
             temperature.HighestTemperature();
             temperature.LowestTemperature();
+            temperature.BubbleSort();
+            temperature.PrintArray();
             Console.ReadLine();
         }
     }
@@ -102,6 +96,26 @@ namespace Lab3
                 y++;
                 Console.WriteLine($"{Month} {y}: {x}°C");
             }
+        }
+        public void BubbleSort()
+        {
+            int max = temperaturesInMonth.Length - 1;
+            for (int i = 0; i < max; i++)
+            {
+                int left = max - i;
+                for (int j = 0; j < left; j++)
+                {
+                    int value1 = temperaturesInMonth[j];
+                    int value2 = temperaturesInMonth[j + 1];
+                        if (value1 > value2)
+                    {
+                        int temp = temperaturesInMonth[j];
+                        temperaturesInMonth[j] = temperaturesInMonth[j + 1];
+                        temperaturesInMonth[j + 1] = temp;
+                    }
+                }
+            }
+                
         }
 
     }
