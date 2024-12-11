@@ -16,13 +16,14 @@ namespace Lab3
        public static void Main(string[] args)
         {
 
-            TemperatureInformation temperature = new TemperatureInformation("May", 31);
-            temperature.PrintArray();
-            temperature.AverageTemperature();
-            temperature.HighestTemperature();
-            temperature.LowestTemperature();
-            temperature.BubbleSort();
-            temperature.PrintArray();
+            TemperatureInformation temperature = new TemperatureInformation(31, "May");
+            List<TemperatureData> temperatureDataList = temperature.GenerateRandomTemperaturesInMonth(temperature.Days,temperature.Month);
+            temperature.PrintArray(temperatureDataList);
+            temperature.AverageTemperature(temperatureDataList);
+            temperature.HighestTemperature(temperatureDataList);
+            temperature.LowestTemperature(temperatureDataList);
+            temperature.BubbleSort(temperatureDataList);
+            temperature.PrintArray(temperatureDataList);
             Console.ReadLine();
         }
     }
@@ -30,88 +31,104 @@ namespace Lab3
     {
         public string Month { get; private set; }
         public int Days { get; private set; }
-        protected int[] temperaturesInMonth;
+        public int Temperature { get; private set; }
 
-        public TemperatureData(string month, int days)
+        public TemperatureData(int days, string month)
         {
             Month = month;
             Days = days;
-            temperaturesInMonth = new int[days];
-            GenerateRandomTemperaturesInMonth();
+            Temperature = Temperature;
         }
-        public void GenerateRandomTemperaturesInMonth()
+        public TemperatureData()
         {
-            Random random = new Random();
-            for (int i = 0; i < temperaturesInMonth.Length; i++)
+            Month = Month;
+            Days = Days;
+            Temperature = Temperature;
+        }
+        public List<TemperatureData> GenerateRandomTemperaturesInMonth(int days, string month)
+        {
+            List<TemperatureData> list = new List<TemperatureData>();
+            Random rnd = new Random();
+
+            int x = 1;
+            for (int i = 0; i < days; i++)
             {
-                int x = random.Next(0, 25 + 1);
-                temperaturesInMonth[i] = x;
+                TemperatureData tempData = new TemperatureData();
+                tempData.Days = x++;
+                tempData.Month = month;
+                tempData.Temperature = rnd.Next(0, 25 + 1);
+                list.Add(tempData);
+
             }
+            return list;
         }
 
     }
     class TemperatureInformation : TemperatureData
     {
-        public TemperatureInformation(string month, int days) : base(month, days) { }
+        public TemperatureInformation(int days, string month) : base(days, month) { }
 
-        public void AverageTemperature()
+        public void AverageTemperature(List<TemperatureData> temperatureDatas)
         {
             int sumOfArray = 0;
-            foreach (int x in temperaturesInMonth)
+            for (int i = 0; i < temperatureDatas.Count; i++)
             {
-                sumOfArray += x;
+                sumOfArray += temperatureDatas[i].Temperature;
             }
-            int averageSumOfArray = sumOfArray / temperaturesInMonth.Length;
+
+            int averageSumOfArray = sumOfArray / temperatureDatas.Count;
             Console.WriteLine($"The average temperature in {Month}: {averageSumOfArray}°C");
         }
-        public void HighestTemperature()
+        public void HighestTemperature(List<TemperatureData> temperatureDatas)
         {
             int highestValue = 0;
-            foreach (int x in temperaturesInMonth)
+            for (int i = 0; i < temperatureDatas.Count; i++)
             {
-                if (x > highestValue)
+                if (temperatureDatas[i].Temperature > highestValue)
                 {
-                    highestValue = x;
+                    highestValue = temperatureDatas[i].Temperature;
                 }
+            }
+            {
+                
             }
             Console.WriteLine($"Highest temperature in {Month}: {highestValue}°C");
         }
-        public void LowestTemperature()
+        public void LowestTemperature(List<TemperatureData> temperatureDatas)
         {
-            int lowestValue = temperaturesInMonth[0];
-            foreach (int x in temperaturesInMonth)
+            int lowestValue = temperatureDatas[0].Temperature;
+            for (int i = 0; i < temperatureDatas.Count; i++)
             {
-                if (x < lowestValue)
-                {
-                    lowestValue = x;
-                }
+                if (temperatureDatas[i].Temperature < lowestValue)
+                    {
+                        lowestValue = temperatureDatas[i].Temperature;
+                    }               
             }
+   
             Console.WriteLine($"Lowest temperature in {base.Month}: {lowestValue}°C");
         }
-        public void PrintArray()
+        public void PrintArray(List<TemperatureData> temperatureDatas)
         {
-            int y = 0;
-            foreach (int x in temperaturesInMonth)
+            for (int i = 0; i < temperatureDatas.Count; i++)
             {
-                y++;
-                Console.WriteLine($"{Month} {y}: {x}°C");
+               Console.WriteLine($"{temperatureDatas[i].Month} {temperatureDatas[i].Days}: {temperatureDatas[i].Temperature}°C");
             }
         }
-        public void BubbleSort()
+        public void BubbleSort(List<TemperatureData> temperatureDatas)
         {
-            int max = temperaturesInMonth.Length - 1;
+            int max = temperatureDatas.Count - 1;
             for (int i = 0; i < max; i++)
             {
                 int left = max - i;
                 for (int j = 0; j < left; j++)
                 {
-                    int value1 = temperaturesInMonth[j];
-                    int value2 = temperaturesInMonth[j + 1];
+                    int value1 = temperatureDatas[j].Temperature;
+                    int value2 = temperatureDatas[j + 1].Temperature;
                         if (value1 > value2)
                     {
-                        int temp = temperaturesInMonth[j];
-                        temperaturesInMonth[j] = temperaturesInMonth[j + 1];
-                        temperaturesInMonth[j + 1] = temp;
+                        TemperatureData temp = temperatureDatas[j];
+                        temperatureDatas[j] = temperatureDatas[j + 1];
+                        temperatureDatas[j + 1] = temp;
                     }
                 }
             }
