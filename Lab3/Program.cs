@@ -1,12 +1,5 @@
-﻿using System.ComponentModel;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading.Channels;
-
-namespace Lab3
+﻿namespace Lab3
 {
-
-
-
     public class Program
     {
        public static void Main(string[] args)
@@ -30,31 +23,44 @@ namespace Lab3
                 {
                     case 1: 
                         {
-                            Console.WriteLine("Average Temp");
+                            Console.Clear();
+                            temperature.AverageTemperature(temperatureDataArray);
                             break;
                         }
                     case 2:
                         {
-                            Console.WriteLine("Apex Temp");
+                            Console.Clear();
+                            temperature.ExtremaTemperature(temperatureDataArray);
                             break;
                         }
                     case 3:
                         {
-                                Console.WriteLine("Warmest");
-                                break;
+                            Console.Clear();
+                            temperature.BubbleSort(temperatureDataArray);
+                            break;
                         }
                     case 4:
                         {
-                            Console.WriteLine("Sort");
+                            Console.Clear();
+                            temperature.WarmDays(temperatureDataArray);
                             break;
                         }
                     case 5:
                         {
-                            Console.WriteLine("Search by day");
+                            Console.Clear();
+                            temperature.SpecificDay(temperatureDataArray);
                             break;
                         }
-                    case 6: {
-                            Console.WriteLine("Common temp");
+                    case 6: 
+                        {
+                            Console.Clear();
+                            temperature.MostCommonTemperature(temperatureDataArray);
+                            break;
+                        }
+                    case 7:
+                        {
+                            menu = false;
+                            Environment.Exit(0);
                             break;
                         }
                     default:
@@ -62,24 +68,10 @@ namespace Lab3
                             Console.WriteLine("Please enter a valid choice.");
                             break;
                         }
-                    
-                        }
+                    }
                 }
             } 
-
-
-
-
-
-            //temperature.AverageTemperature(temperatureDataArray);
-            //temperature.ApexTemperatures(temperatureDataArray, 1);
-            //temperature.BubbleSort(temperatureDataArray, 1);
-            //temperature.WarmDays(10,temperatureDataArray);
-            //temperature.SpecificDays(10, temperatureDataArray);
-            //temperature.MostCommonTemperature(temperatureDataArray);
-            //Console.ReadLine();
         }
-    }
     class TemperatureData
     {
         public int Days { get; private set; }
@@ -127,46 +119,50 @@ namespace Lab3
                 sumOfArray += temperatureArray[i].Temperature;
             }
             int averageSumOfArray = sumOfArray / temperatureArray.Length;
-            Console.WriteLine($"The average temperature in {Month}: {averageSumOfArray}°C");
+            Console.Clear();
+            Console.WriteLine($"\tThe average temperature in {Month} is: {averageSumOfArray}°C\n");
         }
-        public void ApexTemperatures(TemperatureData[] temperatureArray, int userInput)
+        public void ExtremaTemperature(TemperatureData[] temperatureArray)
         {
-            int minMax = temperatureArray[0].Temperature;
-            string minMaxstr = "";
+            int extrema = temperatureArray[0].Temperature;
+            string extremaStr = "";
+            int userInput = MenuChoice("\tWhich extrema would you like to see?\n\n\t[1] Hottest \n\t[2] Coldest");
             for (int i = 0; i < temperatureArray.Length; i++)
             {
                 if (userInput == 0)
                 {
-                    if (temperatureArray[i].Temperature > minMax)
+                    if (temperatureArray[i].Temperature > extrema)
                     {
-                        minMax = temperatureArray[i].Temperature;
-                        minMaxstr = "Highest";
+                        extrema = temperatureArray[i].Temperature;
+                        extremaStr = "hottest";
                     }
-                 }
+                }
                 else
                 {
-                    if (temperatureArray[i].Temperature < minMax)
+                    if (temperatureArray[i].Temperature < extrema)
                     {
-                        minMax = temperatureArray[i].Temperature;
-                        minMaxstr = "Lowest";
+                        extrema = temperatureArray[i].Temperature;
+                        extremaStr = "coldest";
                     }
 
                 }
 
             }
-            Console.WriteLine($"{minMaxstr} temperature in {Month}: {minMax}°C");
+            Console.Clear();
+            Console.WriteLine($"\tThe {extremaStr} temperature in {Month} is: {extrema}°C\n");
         }
         public void PrintArray(TemperatureData[] temperatureArray)
         {
-            int y = 0;
             for (int i = 0; i < temperatureArray.Length; i++)
             {
-                y++;
                 Console.WriteLine($"{Month} {temperatureArray[i].Days} - {temperatureArray[i].Temperature}°C");
             }
         }
-        public void BubbleSort(TemperatureData[] temperatureArray, int userinput)
+        public void BubbleSort(TemperatureData[] temperatureArray)
         {
+            TemperatureData[] tempArray = temperatureArray;
+
+            int userInput = MenuChoice("\tWhich way would you like to sort?\n\n\t[1] Ascending \n\t[2] Descending");
             int max = temperatureArray.Length - 1;
             for (int i = 0; i < max; i++)
             {
@@ -175,7 +171,7 @@ namespace Lab3
                 {
                     int value1 = temperatureArray[j].Temperature;
                     int value2 = temperatureArray[j + 1].Temperature;
-                    if (userinput == 0)
+                    if (userInput == 0)
                     {
                         if (value1 > value2)
                         {
@@ -184,7 +180,7 @@ namespace Lab3
                             temperatureArray[j + 1] = temp;
                         }
                     }
-                    else 
+                    else
                     {
                         if (value1 < value2)
                         {
@@ -194,17 +190,39 @@ namespace Lab3
                         }
                     }
 
-                   
+
                 }
             }
-
+            PrintArray(temperatureArray);
+            Console.Write("Press any key to continue...");
+            Console.ReadKey();
+            temperatureArray = tempArray;
+            Console.Clear();
         }
-        public void WarmDays (int userinput, TemperatureData[] temperatureArray)
+        public void WarmDays(TemperatureData[] temperatureArray)
         {
             List<TemperatureData> WarmTemperatureList = new List<TemperatureData>();
+            int userInput = 0;
+            bool menu = true;
+            while (menu)
+            {
+                Console.Write("\tEnter a temperature greater than 0! We will show you ever day that is warmer than your choice:");
+                Int32.TryParse(Console.ReadLine(), out userInput);
+                    if (userInput > 0)
+                    {
+                        Console.Clear();
+                        menu = false;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("\tPlease write a number.\n\n");
+                    }                
+            }
+           
             for (int i = 0; i < temperatureArray.Length; i++)
             {
-                if (userinput <= temperatureArray[i].Temperature)
+                if (userInput <= temperatureArray[i].Temperature)
                 {
                     WarmTemperatureList.Add(temperatureArray[i]);
                 }
@@ -215,46 +233,128 @@ namespace Lab3
             {
                 tempArray[i] = WarmTemperatureList[i];
             }
+            Console.WriteLine($"\tThese are the temperatures that are {userInput}°C or warmer:\n\n");
             PrintArray(tempArray);
+            AfterArrayWait();
+
         }
-        public void SpecificDays (int userinput, TemperatureData[] temperatureArray)
+        public void SpecificDay(TemperatureData[] temperatureArray)
         {
             TemperatureData[] temp = new TemperatureData[3];
-            for (int i = 0; i < temperatureArray.Length; i++)
+            int userInput = 0;
+            bool menu = true;
+            while (menu)
             {
-                if (userinput == temperatureArray[i].Days)
+                Console.Write( $"\tEnter a date between 1 - {temperatureArray.Length} and we will " +
+                    $"show you the temperature for that day and its neighbouring days:");
+                Int32.TryParse(Console.ReadLine(), out userInput);
+                if (userInput > 0)
                 {
-                    
-                    temp[0] = temperatureArray[i - 1];
-                    temp[1] = temperatureArray[i];
-                    temp[2] = temperatureArray[i + 1];
+                    Console.Clear();
+                    menu = false;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("\tPlease enter a valid date\n");
                 }
             }
-            Console.WriteLine("Print Specific Day:\n"); 
-            PrintArray (temp);
+            for (int i = 0; i < temperatureArray.Length; i++)
+            {
+                if (userInput == temperatureArray[i].Days)
+                {
+                    if (userInput == 1)
+                    {
+                        temp = new TemperatureData[2];
+                        temp[0] = temperatureArray[i];
+                        temp[1] = temperatureArray[i + 1];
+                    }
+                    else if (userInput == temperatureArray.Length)
+                    {
+                        temp = new TemperatureData[2];
+                        temp[0] = temperatureArray[i - 1];
+                        temp[1] = temperatureArray[i];
+                    }
+                    else
+                    {
+                        temp[0] = temperatureArray[i - 1];
+                        temp[1] = temperatureArray[i];
+                        temp[2] = temperatureArray[i + 1];
+                    }
+                  
+                }
+            }
+            Console.WriteLine($"\tHere is {userInput} of {Month} and its neighbouring days\n");
+            PrintArray(temp);
+            AfterArrayWait();
         }
         public void MostCommonTemperature(TemperatureData[] temperatureArray)
         {
-            int highestTemperature = 0;
-            int highestTemperatureValue = 0;
+            int commonTemperatureCount = 0;
+            int commonTemperatureValue = 0;
             for (int i = 0; i < temperatureArray.Length; i++)
             {
                 int currentTemp = temperatureArray[i].Temperature;
                 int currentTempCount = 0;
                 for (int j = 0; j < temperatureArray.Length; j++)
                 {
-                    if(currentTemp == temperatureArray[j].Temperature)
+                    if (currentTemp == temperatureArray[j].Temperature)
                     {
                         currentTempCount++;
                     }
                 }
-                if(currentTempCount > highestTemperature)
+                if (currentTempCount > commonTemperatureCount)
                 {
-                    highestTemperature = currentTempCount;
-                    highestTemperatureValue = temperatureArray[i].Temperature;
-                    
+                    commonTemperatureCount = currentTempCount;
+                    commonTemperatureValue = temperatureArray[i].Temperature;
+
                 }
             }
-            Console.WriteLine($"Higest temp was: {highestTemperatureValue} and appeared {highestTemperature} times");
+            Console.Clear();
+            Console.WriteLine($"\tThe most common temperature was: {commonTemperatureValue}°C and appeared {commonTemperatureCount} times\n");
+            AfterArrayWait();
         }
-    }
+        public int MenuChoice(string menuText)
+        {
+            int userInput = 0;
+            bool menu = true;
+            while (menu)
+            {
+                Console.Clear();
+                Console.WriteLine(menuText);
+
+               Int32.TryParse(Console.ReadLine(), out userInput) ;
+                switch (userInput)
+                {
+                    case 1:
+                        {
+                            userInput -= 1;
+                            menu = false;
+                            break;
+                        }
+                    case 2:
+                        {
+                            userInput -= 1;
+                            menu = false;
+                            break;
+                        }
+                    default:
+                        {
+                            Console.WriteLine("Please enter a valid choice.");
+                            break;
+                        }
+                }
+            }
+            return userInput;
+        }
+        public void AfterArrayWait()
+        {
+            Console.Write("Press any key to continue...");
+            Console.ReadKey();
+            Console.Clear();
+        }
+    
+    }   
+  } 
+    
+    
