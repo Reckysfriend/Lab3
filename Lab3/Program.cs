@@ -14,6 +14,19 @@ namespace Lab3
 
             Console.Write("Please enter a month;");
             string month = Console.ReadLine();
+            bool miniMenu = true;
+                while (miniMenu)
+            {
+                if (month = "May")
+                {
+                    miniMenu = false;
+                }
+                else
+                {
+                    Console.Write("Please enter May");
+                }
+            }
+
             Console.Clear();
             Console.Write("Please enter how many days there are in the month you gave;");
             Int32.TryParse(Console.ReadLine(), out int days);
