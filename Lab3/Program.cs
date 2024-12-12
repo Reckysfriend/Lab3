@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Reflection.Metadata.Ecma335;
+using System.Threading.Channels;
 
 namespace Lab3
 {
@@ -11,18 +12,72 @@ namespace Lab3
        public static void Main(string[] args)
         {
 
-            TemperatureInformation temperature = new TemperatureInformation("May", 31);
-            TemperatureData[] temperatureDataArray = temperature.GenerateRandomTemperaturesInMonth(31);
-            temperature.PrintArray(temperatureDataArray);
-            temperature.AverageTemperature(temperatureDataArray);
-            temperature.HighestTemperature(temperatureDataArray);
-            temperature.LowestTemperature(temperatureDataArray);
-            temperature.BubbleSort(temperatureDataArray, 1);
-            temperature.PrintArray(temperatureDataArray);
-            temperature.WarmDays(10,temperatureDataArray);
-            temperature.SpecificDays(10, temperatureDataArray);
-            temperature.MostCommonTemperature(temperatureDataArray);
-            Console.ReadLine();
+            Console.Write("Please enter a month;");
+            string month = Console.ReadLine();
+            Console.Clear();
+            Console.Write("Please enter how many days there are in the month you gave;");
+            Int32.TryParse(Console.ReadLine(), out int days);
+            TemperatureInformation temperature = new TemperatureInformation(month, days);
+            TemperatureData[] temperatureDataArray = temperature.GenerateRandomTemperaturesInMonth(days);
+            bool menu = true;
+            while (menu)
+            {
+                Console.WriteLine("\tMeterology program\n\n\t[1] Average Temperature\n\t[2] ApexTemperatures\n" +
+                    "\t[3] Sort Temperature\n\t[4] Warmetst day\n\t [5] Search by day\n\t " +
+                    "[6] Most Common temperature\n\n\t [7] Exit Program\n");
+                Int32.TryParse(Console.ReadLine(), out int userInput);
+                switch (userInput)
+                {
+                    case 1: 
+                        {
+                            Console.WriteLine("Average Temp");
+                            break;
+                        }
+                    case 2:
+                        {
+                            Console.WriteLine("Apex Temp");
+                            break;
+                        }
+                    case 3:
+                        {
+                                Console.WriteLine("Warmest");
+                                break;
+                        }
+                    case 4:
+                        {
+                            Console.WriteLine("Sort");
+                            break;
+                        }
+                    case 5:
+                        {
+                            Console.WriteLine("Search by day");
+                            break;
+                        }
+                    case 6: {
+                            Console.WriteLine("Common temp");
+                            break;
+                        }
+                    default:
+                        {
+                            Console.WriteLine("Please enter a valid choice.");
+                            break;
+                        }
+                    
+                        }
+                }
+            } 
+
+
+
+
+
+            //temperature.AverageTemperature(temperatureDataArray);
+            //temperature.ApexTemperatures(temperatureDataArray, 1);
+            //temperature.BubbleSort(temperatureDataArray, 1);
+            //temperature.WarmDays(10,temperatureDataArray);
+            //temperature.SpecificDays(10, temperatureDataArray);
+            //temperature.MostCommonTemperature(temperatureDataArray);
+            //Console.ReadLine();
         }
     }
     class TemperatureData
@@ -74,29 +129,32 @@ namespace Lab3
             int averageSumOfArray = sumOfArray / temperatureArray.Length;
             Console.WriteLine($"The average temperature in {Month}: {averageSumOfArray}°C");
         }
-        public void HighestTemperature(TemperatureData[] temperatureArray)
+        public void ApexTemperatures(TemperatureData[] temperatureArray, int userInput)
         {
-            int highestValue = 0;
+            int minMax = temperatureArray[0].Temperature;
+            string minMaxstr = "";
             for (int i = 0; i < temperatureArray.Length; i++)
             {
-                if (temperatureArray[i].Temperature > highestValue)
+                if (userInput == 0)
                 {
-                    highestValue = temperatureArray[i].Temperature;
-                }
-            }
-            Console.WriteLine($"Highest temperature in {Month}: {highestValue}°C");
-        }
-        public void LowestTemperature(TemperatureData[] temperatureArray)
-        {
-            int lowestValue = temperatureArray[0].Temperature;
-            for (int i = 0; i < temperatureArray.Length; i++)
-            {
-                if (temperatureArray[i].Temperature < lowestValue)
+                    if (temperatureArray[i].Temperature > minMax)
+                    {
+                        minMax = temperatureArray[i].Temperature;
+                        minMaxstr = "Highest";
+                    }
+                 }
+                else
                 {
-                    lowestValue = temperatureArray[i].Temperature;
+                    if (temperatureArray[i].Temperature < minMax)
+                    {
+                        minMax = temperatureArray[i].Temperature;
+                        minMaxstr = "Lowest";
+                    }
+
                 }
+
             }
-            Console.WriteLine($"Lowest temperature in {base.Month}: {lowestValue}°C");
+            Console.WriteLine($"{minMaxstr} temperature in {Month}: {minMax}°C");
         }
         public void PrintArray(TemperatureData[] temperatureArray)
         {
@@ -200,4 +258,3 @@ namespace Lab3
             Console.WriteLine($"Higest temp was: {highestTemperatureValue} and appeared {highestTemperature} times");
         }
     }
-}
