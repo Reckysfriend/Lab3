@@ -30,6 +30,18 @@ namespace Lab3
             Console.Clear();
             Console.Write("Please enter how many days there are in the month you gave;");
             Int32.TryParse(Console.ReadLine(), out int days);
+            bool miniMenu2 = true;
+            while (miniMenu2)
+            {
+                if (days = 31)
+                {
+                    miniMenu2 = false
+                }
+                else
+                {
+                    Console.Write("please enter 31");
+                }
+            }
             TemperatureInformation temperature = new TemperatureInformation(month, days);
             TemperatureData[] temperatureDataArray = temperature.GenerateRandomTemperaturesInMonth(days);
             bool menu = true;
