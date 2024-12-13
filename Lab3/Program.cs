@@ -20,37 +20,37 @@
                     case 1: 
                         {
                             Console.Clear();
-                            TemperatureInformation.AverageTemperature();
+                            TemperatureInformation.FindAverageTemperature();
                             break;
                         }
                     case 2:
                         {
                             Console.Clear();
-                            TemperatureInformation.ExtremaTemperature();
+                            TemperatureInformation.FindExtremaTemperature();
                             break;
                         }
                     case 3:
                         {
                             Console.Clear();
-                            TemperatureInformation.BubbleSort();
+                            TemperatureInformation.SortArray();
                             break;
                         }
                     case 4:
                         {
                             Console.Clear();
-                            TemperatureInformation.WarmDays();
+                            TemperatureInformation.FindWarmDays();
                             break;
                         }
                     case 5:
                         {
                             Console.Clear();
-                            TemperatureInformation.SpecificDay();
+                            TemperatureInformation.FindSpecificDay();
                             break;
                         }
                     case 6: 
                         {
                             Console.Clear();
-                            TemperatureInformation.MostCommonTemperature();
+                            TemperatureInformation.FindMostCommonTemperature();
                             break;
                         }
                     case 7:
