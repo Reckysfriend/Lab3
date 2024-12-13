@@ -196,7 +196,7 @@ namespace Lab3
                 Console.Write($"\tEnter a date between 1 - {TemperatureData.temperatureDataArray.Length} and we will " +
                     $"show you the temperature for that day and its neighbouring days:");
                 Int32.TryParse(Console.ReadLine(), out userInput);
-                if (userInput > 0)
+                if (userInput > 0 && userInput <= 31)
                 {
                     Console.Clear();
                     menu = false;
