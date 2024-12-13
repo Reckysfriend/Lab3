@@ -73,6 +73,7 @@
                         }
                     default:
                         {
+                            Console.Clear();
                             Console.WriteLine("Please enter a valid choice.");
                             break;
                         }
