@@ -22,7 +22,6 @@ namespace Lab3
                 bool menu = true;
                 while (menu)
                 {
-                    Console.Clear();
                     Console.WriteLine(menuText);
                     Int32.TryParse(Console.ReadLine(), out userInput);
                     switch (userInput)

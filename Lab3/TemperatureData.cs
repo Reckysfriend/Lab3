@@ -154,7 +154,7 @@ namespace Lab3
                 Console.Write("\tEnter a temperature greater than 0! We will show you ever day that is warmer than your choice:");
                 Int32.TryParse(Console.ReadLine(), out userInput);
                 //Confirms if the TryParse work, since a failed Parse would return 0.
-                if (userInput > 0)
+                if (userInput > 0 || userInput <= 25)
                 {
                     Console.Clear();
                     menu = false;
@@ -275,12 +275,28 @@ namespace Lab3
         {
             TemperatureData[] tempArray = TemperatureData.temperatureDataArray;
             //Finding the median requires the list to be sorted
-            SortArray();
+            int max = temperatureDataArray.Length - 1;
+                for (int i = 0; i < max; i++)
+            {
+                int left = max - i;
+                for (int j = 0; j < left; j++)
+                {
+                    int value1 = TemperatureData.temperatureDataArray[j].Temperature;
+                    int value2 = TemperatureData.temperatureDataArray[j + 1].Temperature;
+                    if (value1 > value2)
+                    {
+                        TemperatureData temp = TemperatureData.temperatureDataArray[j];
+                        TemperatureData.temperatureDataArray[j] = TemperatureData.temperatureDataArray[j + 1];
+                        TemperatureData.temperatureDataArray[j + 1] = temp;
+                    }
+                }
+            }
             //We can find the median by dividing by two since we know the lenght of 
             //the array will always be a odd number.
             int medianPoint = TemperatureData.temperatureDataArray.Length / 2;
             int medianValue = temperatureDataArray[medianPoint].Temperature;
-            Console.WriteLine($"\tThe median temperature of May is {medianValue}\n");
+            Console.WriteLine($"\tThe median temperature of May is {medianValue}°C\n");
+            TemperatureData.temperatureDataArray = tempArray;
         }
 
     }

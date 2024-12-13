@@ -74,7 +74,7 @@
                     default:
                         {
                             Console.Clear();
-                            Console.WriteLine("Please enter a valid choice.");
+                            Console.WriteLine("\tPlease enter a valid choice.\n");
                             break;
                         }
                     }
