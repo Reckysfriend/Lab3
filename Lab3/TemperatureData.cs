@@ -8,7 +8,6 @@ namespace Lab3
         // our functions.
         public static TemperatureData[] temperatureDataArray = new TemperatureData[31];
         public int Days { get; private set; }
-
         public string Month { get; private set; }
         public int Temperature { get; private set; }
 
@@ -20,14 +19,13 @@ namespace Lab3
             Days = Days;
             Temperature = Temperature;
         }
-        public static TemperatureData[] GenerateTemperatureData()
+        public static void GenerateTemperatureData()
         {
             Random random = new Random();
             //Creates a "temp" array to store the newly instanced
             // TemperatureData objects. 
-            TemperatureData[] dataArray = new TemperatureData[31];
             int x = 1;
-            for (int i = 0; i < dataArray.Length; i++)
+            for (int i = 0; i < temperatureDataArray.Length; i++)
             {
                 //Creates a blank TemperatureData
                 TemperatureData tempData = new TemperatureData();
@@ -38,9 +36,7 @@ namespace Lab3
                 //Moves the TemperatureData into the array the program uses.
                 TemperatureData.temperatureDataArray[i] = tempData;
             }
-            return dataArray;
         }
-
     }
     class TemperatureInformation : TemperatureData
     {
@@ -250,8 +246,12 @@ namespace Lab3
             int commonTemperatureValue = 0;
             for (int i = 0; i < TemperatureData.temperatureDataArray.Length; i++)
             {
+                // The outer loop selects one temperature at a time to loop
+                // through the inner loop.
                 int currentTemp = TemperatureData.temperatureDataArray[i].Temperature;
                 int currentTempCount = 0;
+                //Takes the previously selected value and compares it against every
+                //other value and increases the count for each time it matches.
                 for (int j = 0; j < TemperatureData.temperatureDataArray.Length; j++)
                 {
                     if (currentTemp == TemperatureData.temperatureDataArray[j].Temperature)
@@ -259,6 +259,8 @@ namespace Lab3
                         currentTempCount++;
                     }
                 }
+                //Checks if the looped temperature is the most common one and puts it
+                // in the veriabl if its true.
                 if (currentTempCount > commonTemperatureCount)
                 {
                     commonTemperatureCount = currentTempCount;
@@ -272,7 +274,10 @@ namespace Lab3
         public static void FindMedian()
         {
             TemperatureData[] tempArray = TemperatureData.temperatureDataArray;
+            //Finding the median requires the list to be sorted
             SortArray();
+            //We can find the median by dividing by two since we know the lenght of 
+            //the array will always be a odd number.
             int medianPoint = TemperatureData.temperatureDataArray.Length / 2;
             int medianValue = temperatureDataArray[medianPoint].Temperature;
             Console.WriteLine($"\tThe median temperature of May is {medianValue}\n");
