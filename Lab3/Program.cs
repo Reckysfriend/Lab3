@@ -13,7 +13,7 @@
             {
                 Console.WriteLine("\tMeterology program\n\n\t[1] Average Temperature\n\t[2] Extrema Temperatures\n" +
                     "\t[3] Sort Temperature\n\t[4] Warmetst day\n\t[5] Search by day\n\t" +
-                    "[6] Most Common temperature\n\t[7] Print List\n\n\t[8] Exit Program\n");
+                    "[6] Most Common temperature\n\t[7] Print List\n\t[8] Find Median\n\n\t [9] Exit Program\n");
                 Int32.TryParse(Console.ReadLine(), out int userInput);
                 switch (userInput)
                 {
