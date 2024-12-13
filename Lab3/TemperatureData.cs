@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 namespace Lab3
 {
     public class TemperatureData
@@ -45,7 +46,7 @@ namespace Lab3
     {
         public TemperatureInformation() { }
 
-        public static void AverageTemperature()
+        public static void FindAverageTemperature()
         {
             //Finds out the average temperature by summing all of 
             //them and deviding by how many days there are.
@@ -58,7 +59,7 @@ namespace Lab3
             Console.Clear();
             Console.WriteLine($"\tThe average temperature in May is: {averageSumOfArray}°C\n");
         }
-        public static void ExtremaTemperature()
+        public static void FindExtremaTemperature()
         {
             int extrema = TemperatureData.temperatureDataArray[0].Temperature;
             string extremaStr = "";
@@ -100,7 +101,7 @@ namespace Lab3
             }
             TemperatureInformationSupport.AfterArrayWait();
         }
-        public static void BubbleSort()
+        public static void SortArray()
         {
             //tempArray is inisialised here since it needs to be
             //ascessible outside of our loop. 
@@ -144,7 +145,7 @@ namespace Lab3
             PrintArray(TemperatureData.temperatureDataArray);
             TemperatureData.temperatureDataArray = tempArray;
         }
-        public static void WarmDays()
+        public static void FindWarmDays()
         {
             //A list is used to store all the warm days instead of an array
             //since we cannot know how many warm days there will be therefore
@@ -187,7 +188,7 @@ namespace Lab3
             Console.WriteLine($"\tThese were the days where it was {userInput}°C or warmer:\n\n");
             PrintArray(tempArray);
         }
-        public static void SpecificDay()
+        public static void FindSpecificDay()
         {
             //We know we only need to store 3 values so we can use a
             //instanced array with a size of 3.
@@ -242,7 +243,7 @@ namespace Lab3
             Console.WriteLine($"\tHere is {userInput} of May and its neighbouring days\n");
             PrintArray(temp);
         }
-        public static void MostCommonTemperature()
+        public static void FindMostCommonTemperature()
         {
 
             int commonTemperatureCount = 0;
@@ -267,6 +268,14 @@ namespace Lab3
             }
             Console.Clear();
             Console.WriteLine($"\tThe most common temperature was: {commonTemperatureValue}°C and it appeared {commonTemperatureCount} times\n");
+        }
+        public static void FindMedian()
+        {
+            TemperatureData[] tempArray = TemperatureData.temperatureDataArray;
+            SortArray();
+            int medianPoint = TemperatureData.temperatureDataArray.Length / 2;
+            int medianValue = temperatureDataArray[medianPoint].Temperature;
+            Console.WriteLine($"\tThe median temperature of May is {medianValue}\n");
         }
 
     }
