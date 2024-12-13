@@ -61,6 +61,12 @@
                         }
                     case 8:
                         {
+                            Console.Clear();
+                            TemperatureInformation.FindMedian();
+                            break;
+                        }
+                    case 9:
+                        {
                             menu = false;
                             Environment.Exit(0);
                             break;
