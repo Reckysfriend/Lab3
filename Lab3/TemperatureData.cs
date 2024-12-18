@@ -5,7 +5,8 @@ namespace Lab3
     public class TemperatureData
     {
         //Creates a static array that will be used in all
-        // our functions.
+        // our functions which always has 31 days since that
+        // is the amount in May.
         public static TemperatureData[] temperatureDataArray = new TemperatureData[31];
         public int Days { get; private set; }
         public string Month { get; private set; }
